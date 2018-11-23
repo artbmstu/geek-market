@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/dist/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.1.3/js/bootstrap.min.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{css/main.css}"/>
+
+</head>
+<body>
+<div th:replace="~{navigation :: navi(Home)}" />
+<div>
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Изображение</th>
+            <th scope="col">Артикул</th>
+            <th scope="col">Наименование</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Купить</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="product, rowStat: ${products}" th:style="${rowStat.odd} ? 'color: blue' : 'color: black'">
+            <tr>
+                <td scope="row"><p th:text="${product.id}"></p></td>
+                <td scope="row"><img class="product-image" th:src="${product.image}"/></td>
+                <td scope="row"><p th:text="${product.pn}"></p></td>
+                <td scope="row"><p th:text="${product.productDescription.name}"></p></td>
+                <td scope="row"><p th:text="${product.price}"></p></td>
+                <td scope="row"><p th:text="${product.id}"></p></td>
+                <td scope="row">
+                    <form th:action="@{/cart/add}" method="post">
+                        <button type="submit" name="id" th:value="${product.id}">В корзину</button>
+                    </form>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
